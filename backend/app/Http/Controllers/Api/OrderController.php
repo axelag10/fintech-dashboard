@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Order;
+use App\Http\Resources\OrderResource;
 
 class OrderController extends Controller
 {
@@ -29,13 +30,32 @@ class OrderController extends Controller
 
         $query->orderBy($sort, $direction);
 
-        return response()->json(
+        return OrderResource::collection(
             $query->paginate(10)
         );
     }
 
     public function show(Order $order)
     {
-        return response()->json($order);
+        return new OrderResource($order);
+    }
+
+    public function metrics()
+    {
+        return response()->json([
+            'total_orders' => Order::count(),
+
+            'total_revenue' => Order::sum('amount'),
+
+            'failed_payments' => Order::where(
+                'status',
+                'failed'
+            )->count(),
+
+            'pending_payments' => Order::where(
+                'status',
+                'pending'
+            )->count(),
+        ]);
     }
 }
