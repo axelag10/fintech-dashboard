@@ -1,4 +1,5 @@
 import Sidebar from '@/components/layout/sidebar'
+
 import Topbar from '@/components/layout/topbar'
 
 export default function DashboardLayout({
@@ -10,7 +11,7 @@ export default function DashboardLayout({
     <main className="md:flex">
       <Sidebar />
 
-      <section className="flex-1 bg-gray-100 min-h-screen">
+      <section className="flex-1 bg-gray-100 dark:bg-[#0F172A] min-h-screen">
         <Topbar />
 
         <div className="p-6">

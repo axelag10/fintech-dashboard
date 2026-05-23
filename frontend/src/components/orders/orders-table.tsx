@@ -49,7 +49,7 @@ export default function OrdersTable() {
   //     )
   // }
   return (
-    <div className="bg-white rounded-xl border mt-6">
+    <div className="bg-white dark:bg-[#1E293B] rounded-xl border mt-6">
         <div className="overflow-x-auto">
           <div className="flex flex-col md:flex-row gap-4 mb-4 mb-4 my-4 mx-2">
               <Input
@@ -118,7 +118,7 @@ export default function OrdersTable() {
                   key={order.id}
                   className="
                     cursor-pointer
-                    hover:bg-gray-50
+                    hover:bg-gray-50 dark:hover:bg-slate-800
                     transition
                   "
                   onClick={() =>
