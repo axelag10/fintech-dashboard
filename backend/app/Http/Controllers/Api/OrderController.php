@@ -21,7 +21,7 @@ class OrderController extends Controller
             });
         }
         // Filter
-        if ($request->status) {
+        if ($request->status && $request->status !== 'all') {
             $query->where('status', $request->status);
         }
         // Sorting
