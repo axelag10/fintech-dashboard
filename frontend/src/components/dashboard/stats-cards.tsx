@@ -12,7 +12,7 @@ export default function StatsCards() {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 ">
         {[...Array(4)].map((_, i) => (
           <Card key={i} className="h-32" />
         ))}
@@ -21,7 +21,7 @@ export default function StatsCards() {
   }
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
       <Card>
         <CardContent className="p-6">
           <p className="text-sm text-gray-500">
