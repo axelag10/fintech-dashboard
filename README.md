@@ -138,7 +138,72 @@ TanStack Query se usa en el frontend para manejar server state, estados de carga
 
 La interfaz utiliza shadcn/ui y TailwindCSS para construir un dashboard moderno, consistente, responsivo y basado en componentes reutilizables.
 
-## Configuración del backend
+## Ejecutar con Docker
+
+Este proyecto incluye un Docker Compose setup con:
+
+- Laravel API
+- Next.js frontend
+- PostgreSQL database
+
+### Requerimientos
+
+- Docker Desktop
+- Docker Compose
+
+### Configuración
+
+Clonar el repositorio:
+
+```bash
+git clone https://github.com/axelag10/fintech-dashboard
+cd fintech-dashboard
+```
+
+Crear archivos .env:
+
+```bash
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env.local
+```
+
+Iniciar contenedores:
+
+```bash
+docker compose up -d --build
+``` 
+
+Generar App Key para Laravel:
+
+```bash
+docker compose exec backend php artisan key:generate
+``` 
+
+Correr migraciones y seeders:
+
+```bash
+docker compose exec backend php artisan migrate:fresh --seed
+``` 
+
+Acceder a la app:
+
+```bash
+Frontend: http://localhost:3000
+Backend API: http://localhost:8002
+``` 
+
+Comandos:
+Ver logs
+Detener docker compose
+Detener docker compose y elimina volumen
+
+```bash
+docker compose logs -f.
+docker compose down
+docker compose down -v
+``` 
+
+## Configuración del backend manualmente
 
 ### Requisitos previos
 
@@ -188,8 +253,8 @@ DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
 DB_PORT=5432
 DB_DATABASE=fintech_dashboard
-DB_USERNAME=username
-DB_PASSWORD=password
+DB_USERNAME=fintech_user
+DB_PASSWORD=fintech_password
 ```
 
 ### 6. Ejecuta migraciones y seeders
@@ -210,7 +275,7 @@ La API estará disponible en:
 http://127.0.0.1:8000/api
 ```
 
-## Configuración del frontend
+## Configuración del frontend manualmente
 
 ### Requisitos previos
 

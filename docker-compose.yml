@@ -1,0 +1,56 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: fintech_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: fintech_dashboard
+      POSTGRES_USER: fintech_user
+      POSTGRES_PASSWORD: fintech_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - fintech_pgdata:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+    container_name: fintech_backend
+    restart: unless-stopped
+    ports:
+      - "8002:8000"
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      - postgres
+    environment:
+      APP_ENV: local
+      APP_DEBUG: true
+      APP_KEY:
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: fintech_dashboard
+      DB_USERNAME: fintech_user
+      DB_PASSWORD: fintech_password
+      SESSION_DRIVER: file
+      CACHE_STORE: file
+      QUEUE_CONNECTION: sync
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: fintech_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8002/api
+
+volumes:
+  fintech_pgdata:
